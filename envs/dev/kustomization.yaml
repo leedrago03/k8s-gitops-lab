@@ -6,4 +6,8 @@ resources:
 - ../../base/security
 - ../../base/platform
 
-namespace: mesh-lab-dev # <-- This will isolate the environment
+namespace: mesh-lab-dev
+nameSuffix: -dev
+
+patches:
+- path: vs-patch.yaml # <-- Use the new patch

@@ -1,0 +1,13 @@
+# envs/staging/vs-patch.yaml
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: hello
+spec:
+  http:
+  - name: http
+    route:
+    - destination:
+        host: hello-stable-staging # <-- Explicitly set the correct host
+    - destination:
+        host: hello-canary-staging  # <-- Explicitly set the correct host

@@ -5,4 +5,9 @@ resources:
 - ../../base/apps/mesh-lab
 - ../../base/security
 
-namespace: mesh-lab-staging # <-- This will isolate the environment
+namespace: mesh-lab-staging
+nameSuffix: -staging
+
+patches:
+- path: rollout-patch.yaml
+- path: vs-patch.yaml # <-- Use the new patch
