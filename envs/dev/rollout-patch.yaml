@@ -1,0 +1,10 @@
+# envs/dev/rollout-patch.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: hello
+spec:
+  strategy:
+    canary:
+      stableService: hello-stable-dev
+      canaryService: hello-canary-dev

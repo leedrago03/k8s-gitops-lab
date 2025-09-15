@@ -10,4 +10,11 @@ namespace: mesh-lab-dev
 nameSuffix: -dev
 
 patches:
-- path: vs-patch.yaml # <-- Use the new patch
+- path: rollout-patch.yaml
+  target:
+    kind: Rollout
+    name: hello
+- path: vs-patch.yaml
+  target:
+    kind: VirtualService
+    name: hello
