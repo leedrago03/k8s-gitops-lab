@@ -1,6 +1,11 @@
+# envs/staging/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - apps/mesh-lab/services.yaml
 - apps/mesh-lab/virtualservice.yaml
 - apps/mesh-lab/rollout.yaml
+- apps/mesh-lab/analysis-template.yaml # <-- ENSURE THIS LINE EXISTS
+
+patchesStrategicMerge:
+- rollout-patch.yaml
