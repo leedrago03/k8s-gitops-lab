@@ -10,3 +10,25 @@ nameSuffix: -staging
 
 patches: # Using 'patches' instead of the deprecated 'patchesStrategicMerge'
 - path: rollout-patch.yaml
+
+replacements:
+- source:
+    kind: Service
+    name: hello-stable
+    fieldPath: metadata.name
+  targets:
+  - select:
+      kind: Rollout
+      name: hello
+    fieldPaths:
+    - spec.strategy.canary.stableService
+- source:
+    kind: Service
+    name: hello-canary
+    fieldPath: metadata.name
+  targets:
+  - select:
+      kind: Rollout
+      name: hello
+    fieldPaths:
+    - spec.strategy.canary.canaryService
