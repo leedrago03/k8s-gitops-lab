@@ -38,3 +38,12 @@ replacements:
   - select: { kind: AnalysisTemplate, name: success-rate }
     fieldPaths: [spec.args.0.value]
     options: { delimiter: ., index: 0 }
+
+- source: {kind: Service, name: hello-stable, fieldPath: metadata.name}
+  targets:
+  - select: {kind: VirtualService, name: hello}
+    fieldPaths: [spec.http.0.route.0.destination.host]
+- source: {kind: Service, name: hello-canary, fieldPath: metadata.name}
+  targets:
+  - select: {kind: VirtualService, name: hello}
+    fieldPaths: [spec.http.0.route.1.destination.host]
