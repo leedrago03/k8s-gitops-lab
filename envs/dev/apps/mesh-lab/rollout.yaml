@@ -16,7 +16,7 @@ spec:
       containers:
       - name: hello
         image: hashicorp/http-echo:0.2.3
-        args: ["-text=hello-v1"]
+        args: ["-text=hello-v2"]
         ports:
         - containerPort: 5678
   strategy:
@@ -36,3 +36,4 @@ spec:
       - pause: {}
       - setWeight: 50
       - pause: {}
+
