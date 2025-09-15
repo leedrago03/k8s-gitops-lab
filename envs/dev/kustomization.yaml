@@ -3,3 +3,7 @@ kind: Kustomization
 resources:
 - ../../base/apps/mesh-lab # <-- Points to the shared app base
 - ../../base/security     # <-- Points to the shared security base
+- ../../base/platform
+
+namespace: mesh-lab-dev
+nameSuffix: -dev

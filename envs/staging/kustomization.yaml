@@ -4,5 +4,9 @@ resources:
 - ../../base/apps/mesh-lab # <-- Points to the shared app base
 - ../../base/security     # <-- Points to the shared security base
 
+namespace: mesh-lab-staging
+nameSuffix: -staging
+
+
 patches: # Using 'patches' instead of the deprecated 'patchesStrategicMerge'
 - path: rollout-patch.yaml
