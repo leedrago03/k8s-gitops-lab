@@ -1,21 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mesh-lab-dev
+  name: mesh-lab-staging
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/leedrago03/k8s-gitops-lab.git # CHANGE THIS!
+    repoURL: https://github.com/your-username/k8s-gitops-lab.git # CHANGE THIS
     targetRevision: main
-    path: envs/dev
+    path: envs/staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: mesh-lab
+    namespace: mesh-lab-staging # Use a separate namespace
   syncPolicy:
+    automated: {prune: true, selfHeal: true}
     syncOptions:
     - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
-
+    - PruneLast=true

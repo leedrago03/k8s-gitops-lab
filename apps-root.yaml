@@ -1,0 +1,19 @@
+# apps-root.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apps-root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-username/k8s-gitops-lab.git # CHANGE THIS
+    targetRevision: main
+    path: envs-apps # This points to the folder with our app manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
