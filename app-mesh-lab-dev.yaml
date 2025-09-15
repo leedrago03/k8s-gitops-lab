@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mesh-lab-dev
+  namespace: argcd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/leedrago03/k8s-gitops-lab.git # CHANGE THIS!
+    targetRevision: main
+    path: envs/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mesh-lab
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
