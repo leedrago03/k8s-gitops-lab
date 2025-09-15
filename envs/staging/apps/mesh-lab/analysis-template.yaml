@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate
+spec:
+  args:
+  - name: svc
+  metrics:
+  - name: success-rate-5m
+    interval: 1m
+    count: 5
+    successCondition: result >= 0.99
+    failureCondition: result < 0.99
+    provider:
+      prometheus:
+        address: http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        query: |
+          sum(rate(istio_requests_total{destination_service_name=~"{{args.svc}}",response_code!~"5.."}[5m]))
+          /
+          sum(rate(istio_requests_total{destination_service_name=~"{{args.svc}}"}[5m]))

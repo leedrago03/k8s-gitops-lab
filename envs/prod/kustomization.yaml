@@ -4,3 +4,9 @@ resources:
 - apps/mesh-lab/services.yaml
 - apps/mesh-lab/virtualservice.yaml
 - apps/mesh-lab/rollout.yaml
+- apps/mesh-lab/analysis-template.yaml # <-- Ensure this line is present
+- apps/mesh-lab/security/global-mtls.yaml
+- apps/mesh-lab/security/hello-auth-policy.yaml
+
+patchesStrategicMerge:
+- rollout-patch.yaml
