@@ -10,4 +10,10 @@ nameSuffix: -staging
 
 patches:
 - path: rollout-patch.yaml
-- path: vs-patch.yaml # <-- Use the new patch
+  target:
+    kind: Rollout
+    name: hello
+- path: vs-patch.yaml
+  target:
+    kind: VirtualService
+    name: hello
