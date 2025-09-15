@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-internal-traffic-to-hello
+  namespace: mesh-lab-dev # Specific to the dev namespace
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        # Allows any workload from the same namespace
+        namespaces: ["mesh-lab-dev"]
