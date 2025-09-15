@@ -12,45 +12,29 @@ patches:
 - path: rollout-patch.yaml
 
 replacements:
-# This block fixes the Rollout service names
-- source:
-    kind: Service
-    name: hello-stable
-    fieldPath: metadata.name
+# Fixes the Rollout spec
+- source: { kind: Service, name: hello-stable, fieldPath: metadata.name }
   targets:
-  - select:
-      kind: Rollout
-      name: hello
-    fieldPaths:
-    - spec.strategy.canary.stableService
-- source:
-    kind: Service
-    name: hello-canary
-    fieldPath: metadata.name
+  - select: { kind: Rollout, name: hello }
+    fieldPaths: [spec.strategy.canary.stableService]
+- source: { kind: Service, name: hello-canary, fieldPath: metadata.name }
   targets:
-  - select:
-      kind: Rollout
-      name: hello
-    fieldPaths:
-    - spec.strategy.canary.canaryService
-# ADD THIS BLOCK TO FIX THE VIRTUALSERVICE HOSTS
-- source:
-    kind: Service
-    name: hello-stable
-    fieldPath: metadata.name
+  - select: { kind: Rollout, name: hello }
+    fieldPaths: [spec.strategy.canary.canaryService]
+
+# Fixes the VirtualService spec
+- source: { kind: Service, name: hello-stable, fieldPath: metadata.name }
   targets:
-  - select:
-      kind: VirtualService
-      name: hello
-    fieldPaths:
-    - spec.http.0.route.0.destination.host
-- source:
-    kind: Service
-    name: hello-canary
-    fieldPath: metadata.name
+  - select: { kind: VirtualService, name: hello }
+    fieldPaths: [spec.http.0.route.0.destination.host]
+- source: { kind: Service, name: hello-canary, fieldPath: metadata.name }
   targets:
-  - select:
-      kind: VirtualService
-      name: hello
-    fieldPaths:
-    - spec.http.0.route.1.destination.host
+  - select: { kind: VirtualService, name: hello }
+    fieldPaths: [spec.http.0.route.1.destination.host]
+
+# Fixes the AnalysisTemplate spec
+- source: { kind: Service, name: hello-stable, fieldPath: metadata.name }
+  targets:
+  - select: { kind: AnalysisTemplate, name: success-rate }
+    fieldPaths: [spec.args.0.value]
+    options: { delimiter: ., index: 0 }

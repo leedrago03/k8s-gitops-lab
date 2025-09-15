@@ -1,33 +1,55 @@
+# envs/dev/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ../../base/apps/mesh-lab # <-- Points to the shared app base
-- ../../base/security     # <-- Points to the shared security base
+- ../../base/apps/mesh-lab
+- ../../base/security
 - ../../base/platform
 
 namespace: mesh-lab-dev
 nameSuffix: -dev
 
-
-# ADD THIS ENTIRE 'replacements' BLOCK
 replacements:
+# Fixes the Rollout spec to use the suffixed service names
 - source:
     kind: Service
     name: hello-stable
     fieldPath: metadata.name
   targets:
-  - select:
-      kind: Rollout
-      name: hello
-    fieldPaths:
-    - spec.strategy.canary.stableService
+  - select: { kind: Rollout, name: hello }
+    fieldPaths: [spec.strategy.canary.stableService]
 - source:
     kind: Service
     name: hello-canary
     fieldPath: metadata.name
   targets:
-  - select:
-      kind: Rollout
-      name: hello
-    fieldPaths:
-    - spec.strategy.canary.canaryService
+  - select: { kind: Rollout, name: hello }
+    fieldPaths: [spec.strategy.canary.canaryService]
+
+# Fixes the VirtualService routes to use the suffixed service names
+- source:
+    kind: Service
+    name: hello-stable
+    fieldPath: metadata.name
+  targets:
+  - select: { kind: VirtualService, name: hello }
+    fieldPaths: [spec.http.0.route.0.destination.host]
+- source:
+    kind: Service
+    name: hello-canary
+    fieldPath: metadata.name
+  targets:
+  - select: { kind: VirtualService, name: hello }
+    fieldPaths: [spec.http.0.route.1.destination.host]
+
+# NEW FIX: Fixes the AnalysisTemplate to refer to the correct suffixed service
+- source:
+    kind: Service
+    name: hello-stable
+    fieldPath: metadata.name
+  targets:
+  - select: { kind: AnalysisTemplate, name: success-rate }
+    fieldPaths: [spec.args.0.value]
+    options:
+      delimiter: .
+      index: 0

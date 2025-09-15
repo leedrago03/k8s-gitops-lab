@@ -5,6 +5,7 @@ metadata:
 spec:
   args:
   - name: svc
+    value: placeholder-service
   metrics:
   - name: success-rate-5m
     interval: 1m
