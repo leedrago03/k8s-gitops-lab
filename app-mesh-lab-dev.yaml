@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mesh-lab-dev
-  namespace: argcd
+  namespace: argocd
 spec:
   project: default
   source:
@@ -18,3 +18,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
+
