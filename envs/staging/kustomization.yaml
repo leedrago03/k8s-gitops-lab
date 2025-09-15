@@ -32,3 +32,24 @@ replacements:
       name: hello
     fieldPaths:
     - spec.strategy.canary.canaryService
+
+- source:
+    kind: Service
+    name: hello-stable
+    fieldPath: metadata.name
+  targets:
+  - select:
+      kind: VirtualService
+      name: hello
+    fieldPaths:
+    - spec.http.0.route.0.destination.host # <-- Updates the stable host route
+- source:
+    kind: Service
+    name: hello-canary
+    fieldPath: metadata.name
+  targets:
+  - select:
+      kind: VirtualService
+      name: hello
+    fieldPaths:
+    - spec.http.0.route.1.destination.host 
