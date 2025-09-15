@@ -1,17 +1,18 @@
+# envs/staging/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ../../base/apps/mesh-lab # <-- Points to the shared app base
-- ../../base/security     # <-- Points to the shared security base
+- ../../base/apps/mesh-lab
+- ../../base/security
 
 namespace: mesh-lab-staging
 nameSuffix: -staging
 
-
-patches: # Using 'patches' instead of the deprecated 'patchesStrategicMerge'
+patches:
 - path: rollout-patch.yaml
 
 replacements:
+# This block fixes the Rollout service names
 - source:
     kind: Service
     name: hello-stable
@@ -32,7 +33,7 @@ replacements:
       name: hello
     fieldPaths:
     - spec.strategy.canary.canaryService
-
+# ADD THIS BLOCK TO FIX THE VIRTUALSERVICE HOSTS
 - source:
     kind: Service
     name: hello-stable
@@ -42,7 +43,7 @@ replacements:
       kind: VirtualService
       name: hello
     fieldPaths:
-    - spec.http.0.route.0.destination.host # <-- Updates the stable host route
+    - spec.http.0.route.0.destination.host
 - source:
     kind: Service
     name: hello-canary
@@ -52,4 +53,4 @@ replacements:
       kind: VirtualService
       name: hello
     fieldPaths:
-    - spec.http.0.route.1.destination.host 
+    - spec.http.0.route.1.destination.host

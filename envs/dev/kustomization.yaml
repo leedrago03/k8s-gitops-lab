@@ -9,6 +9,7 @@ namespace: mesh-lab-dev
 nameSuffix: -dev
 
 
+# ADD THIS ENTIRE 'replacements' BLOCK
 replacements:
 - source:
     kind: Service
