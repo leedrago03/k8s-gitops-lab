@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-username/k8s-gitops-lab.git # CHANGE THIS
+    repoURL: https://github.com/leedrago03/k8s-gitops-lab.git # CHANGE THIS
     targetRevision: main
     path: envs/dev
   destination:
@@ -17,3 +17,4 @@ spec:
     syncOptions:
     - CreateNamespace=true
     - PruneLast=true
+
