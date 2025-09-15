@@ -1,14 +1,11 @@
-# envs/dev/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: mesh-lab-dev
+nameSuffix: -dev
 resources:
 - ../../base/apps/mesh-lab
 - ../../base/security
 - ../../base/platform
-
-namespace: mesh-lab-dev
-nameSuffix: -dev
-
 patches:
 - path: rollout-patch.yaml
   target:

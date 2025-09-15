@@ -1,4 +1,3 @@
-# envs/staging/rollout-patch.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
@@ -6,8 +5,11 @@ metadata:
 spec:
   strategy:
     canary:
-      steps:
-      - setWeight: 10
-      - pause: {duration: 5m}  # Longer pause for staging
-      - setWeight: 50
-      - pause: {} # Indefinite pause, requires manual promotion
+      stableService: hello-stable-staging
+      canaryService: hello-canary-staging
+      trafficRouting:
+        istio:
+          virtualService:
+            name: hello
+            routes:
+            - http

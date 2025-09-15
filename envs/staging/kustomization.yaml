@@ -1,13 +1,11 @@
-# envs/staging/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: mesh-lab-staging
+nameSuffix: -staging
 resources:
 - ../../base/apps/mesh-lab
 - ../../base/security
-
-namespace: mesh-lab-staging
-nameSuffix: -staging
-
+- ../../base/platform
 patches:
 - path: rollout-patch.yaml
   target:

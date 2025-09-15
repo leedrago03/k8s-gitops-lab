@@ -16,24 +16,25 @@ spec:
       containers:
       - name: hello
         image: hashicorp/http-echo:0.2.3
-        args: ["-text=hello-v2"]
+        args: ["-text=hello-v1"]
         ports:
         - containerPort: 5678
   strategy:
     canary:
-      canaryService: hello-canary
-      stableService: hello-stable
+      # Will be set by env overlays
+      stableService: ""
+      canaryService: ""
       trafficRouting:
         istio:
           virtualService:
             name: hello
             routes:
-            - http # Matches the route name in the VirtualService
+            - http
       steps:
       - setWeight: 10
-      - pause: {}
+      - pause: {duration: 30s}
       - setWeight: 25
-      - pause: {}
+      - pause: {duration: 30s}
       - setWeight: 50
-      - pause: {}
-
+      - pause: {duration: 30s}
+      - setWeight: 100
