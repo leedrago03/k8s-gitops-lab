@@ -10,6 +10,6 @@ spec:
       trafficRouting:
         istio:
           virtualService:
-            name: hello
+            name: hello-dev
             routes:
             - http
