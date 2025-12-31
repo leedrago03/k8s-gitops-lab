@@ -118,11 +118,6 @@ Log in to https://localhost:8081 with username admin and the password you just r
 
 You now have a fully functional, multi-environment GitOps pipeline running on your local machine! You can now experiment by making changes in your Git repository and watching Argo CD automatically apply them to your cluster.
 
-## Acknowledgements
-
-- [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
-- [Awesome README](https://github.com/matiassingers/awesome-readme)
-- [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
   
 <img width="1112" height="285" alt="image" src="https://github.com/user-attachments/assets/1a36bc2b-3fe7-41b3-ba39-8a4c5224d8f9" />
